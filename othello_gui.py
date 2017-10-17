@@ -33,7 +33,7 @@ class OthelloMenu:
               font = ('Braggadocio',25)).grid(row=0,column=0,columnspan=2)
         
         # ROW NUMBER #
-        Label(master=self._root_window, text = 'Choose the row number: ',bg='black',foreground='white').grid(row=1,column=0)
+        Label(master=self._root_window, text = 'Number of rows: ',bg='black',foreground='white').grid(row=1,column=0)
         self._row_var = StringVar()
         self._row_var.set('4')
         r_om = OptionMenu(self._root_window, self._row_var, '4','6','8','10','12','14','16')
@@ -41,7 +41,7 @@ class OthelloMenu:
         r_om.config(bg='black')
         
         # COL NUMBER #
-        Label(master=self._root_window, text = 'Choose the column number: ',bg='black',foreground='white').grid(row=2,column=0)
+        Label(master=self._root_window, text = 'Number of columns: ',bg='black',foreground='white').grid(row=2,column=0)
         self._col_var = StringVar()
         self._col_var.set('4')
         c_om = OptionMenu(self._root_window, self._col_var, '4','6','8','10','12','14','16')
@@ -65,7 +65,7 @@ class OthelloMenu:
         tl_om.config(bg='black')
         
         # WINNING METHOD #
-        Label(master=self._root_window, text = 'Choose the winnig method: ',bg='black',foreground='white').grid(row=5,column=0)
+        Label(master=self._root_window, text = 'Choose the winning method: ',bg='black',foreground='white').grid(row=5,column=0)
         self._winning_method_var = StringVar()
         self._winning_method_var.set('Most')
         wm_om=OptionMenu(self._root_window, self._winning_method_var, 'Most', 'Least')
