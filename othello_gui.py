@@ -4,6 +4,9 @@ import othello_module
 import othello_ai
 import time
 
+HICOLOR = '#DDFF00' # lime
+LOCOLOR = '#FFAAFF' # lilac
+
 class OthelloMenu:
     """ The Class represents the Menu of the Othello game;
     after the options have been selected, it creates an OthelloGame object
@@ -23,56 +26,82 @@ class OthelloMenu:
     def _run_menu(self) -> None:
         """ Display the available options for the game of Othello
         """
+        self._create_main_menu_root_window()
+
+        self._place_gamename_label()
+        self._place_option_menu_row_number()
+        self._place_option_menu_col_number()
+        self._place_option_menu_first_move_player()
+        self._place_option_menu_top_left_disk()
+        self._place_option_menu_winning_method()
+        self._place_button_box_for_start_cancel()
+
+        self._root_window.mainloop()
+
+
+    def _create_main_menu_root_window(self) -> None:
         self._root_window = Tk()
-        self._root_window.title('OTHELLO v.2.01')
+        self._root_window.title('REVERSI v.2.01')
         self._root_window.resizable(False,False)
         self._root_window.config(bg='black')
-        Label(master=self._root_window, text = 'OTHELLO',
-              width = 12, height=1, relief = SUNKEN,
-              borderwidth=5, background='#DDFF00',
-              font = ('Braggadocio',25)).grid(row=0,column=0,columnspan=2)
-        
-        # ROW NUMBER #
-        Label(master=self._root_window, text = 'Number of rows: ',bg='black',foreground='white').grid(row=1,column=0)
+
+
+    def _place_gamename_label(self) -> None:
+        Label(master=self._root_window, text = 'REVERSI',
+            width = 12, height=1, relief = SUNKEN,
+            borderwidth=5, background=HICOLOR,
+            font = ('Braggadocio',25)).grid(row=0,column=0,columnspan=2)
+
+
+    def _place_option_menu_row_number(self) -> None:
+        text = 'Number of rows: '
+        Label(master=self._root_window, text=text, bg='black', foreground='white').grid(row=1,column=0)
         self._row_var = StringVar()
         self._row_var.set('4')
         r_om = OptionMenu(self._root_window, self._row_var, '4','6','8','10','12','14','16')
         r_om.grid(row=1,column=1)
         r_om.config(bg='black')
-        
-        # COL NUMBER #
-        Label(master=self._root_window, text = 'Number of columns: ',bg='black',foreground='white').grid(row=2,column=0)
+
+
+    def _place_option_menu_col_number(self) -> None:
+        text = 'Number of columns: '
+        Label(master=self._root_window, text=text, bg='black', foreground='white').grid(row=2,column=0)
         self._col_var = StringVar()
         self._col_var.set('4')
         c_om = OptionMenu(self._root_window, self._col_var, '4','6','8','10','12','14','16')
         c_om.grid(row=2,column=1)
         c_om.config(bg='black')
-        
-        # FIRST MOVE PLAYER #
-        Label(master=self._root_window, text = 'Choose the first move player: ',bg='black',foreground='white').grid(row=3,column=0)
+
+
+    def _place_option_menu_first_move_player(self) -> None:
+        text = 'Choose the first move player: '
+        Label(master=self._root_window, text=text, bg='black', foreground='white').grid(row=3,column=0)
         self._first_move_player_var = StringVar()
         self._first_move_player_var.set('Black')
         fm_om = OptionMenu(self._root_window, self._first_move_player_var, 'Black', 'White')
         fm_om.grid(row=3,column=1)
         fm_om.config(bg='black')
-        
-        # TOP LEFT DISK #
-        Label(master=self._root_window, text = 'Choose the top left disk: ',bg='black',foreground='white').grid(row=4,column=0)
+
+
+    def _place_option_menu_top_left_disk(self) -> None:
+        text = 'Choose the top left disk: '
+        Label(master=self._root_window, text=text, bg='black', foreground='white').grid(row=4,column=0)
         self._top_left_disk_var = StringVar()
         self._top_left_disk_var.set('Black')
         tl_om=OptionMenu(self._root_window, self._top_left_disk_var, 'Black', 'White')
         tl_om.grid(row=4,column=1)
         tl_om.config(bg='black')
-        
-        # WINNING METHOD #
-        Label(master=self._root_window, text = 'Choose the winning method: ',bg='black',foreground='white').grid(row=5,column=0)
+
+    def _place_option_menu_winning_method(self) -> None:
+        text = 'Choose the winning method: '
+        Label(master=self._root_window, text=text, bg='black', foreground='white').grid(row=5,column=0)
         self._winning_method_var = StringVar()
         self._winning_method_var.set('Most')
         wm_om=OptionMenu(self._root_window, self._winning_method_var, 'Most', 'Least')
         wm_om.grid(row=5,column=1)
         wm_om.config(bg='black')
 
-        # BUTTONS
+    def _place_button_box_for_start_cancel(self) -> None:
         button_box = Frame(self._root_window)
         button_box.grid(row=6, column=0, columnspan=2)
 
@@ -81,8 +110,6 @@ class OthelloMenu:
         cancel_button = Button(master=button_box, text='CANCEL', command=self._on_cancel_button_clicked)
         cancel_button.pack(side=RIGHT)
 
-        self._root_window.mainloop()
-
     
     def _restart(self) -> None:
 
@@ -90,7 +117,7 @@ class OthelloMenu:
         self._restart_root.title('Restart Othello?')
         self._restart_root.resizable(False,False)
 
-        _label = Label(master = self._restart_root, text = 'Would you like to restart the game?', width = 30, height = 2, borderwidth=2, background = '#DDFF00', font = ('Comic Sans MS', 20)).grid(row=0,column=0,columnspan=2)
+        _label = Label(master = self._restart_root, text = 'Would you like to restart the game?', width = 30, height = 2, borderwidth=2, background = HICOLOR, font = ('Comic Sans MS', 20)).grid(row=0,column=0,columnspan=2)
 
         ##BUTTONS
         button_box = Frame(master=self._restart_root)
@@ -163,7 +190,7 @@ class OthelloGame:
         self._root_window.title('OTHELLO v.2.01')
         self._root_window.config(bg='black')
         self._canvas = Canvas(master=self._root_window, width=600, height=600,
-                              background = '#DDFF00')
+                              background = HICOLOR)
         
         if self._game_state.current_turn == self._ai_player: #####
             self._make_ai_move()
@@ -284,7 +311,7 @@ class OthelloGame:
         self._game_over_window.title('GAME OVER')
         message = "The game is over! {}".format(self._winner_message)
         Label(master=self._game_over_window, text = message,
-              bg='#DDFF00', font=('Times New Roman', 23)).grid(row=0, column=0)
+              bg=HICOLOR, font=('Times New Roman', 23)).grid(row=0, column=0)
         Label(master=self._game_over_window, text="Black: {}\nWhite: {}".format(self._game_state.score[0], self._game_state.score[1]),
               bg='black', foreground='#FFFFFF', font=('Times New Roman', 25)).grid(row=1,column=0)
         Button(master=self._game_over_window, text = 'OK', command=self._on_ok_clicked).grid(row=2,column=0)
@@ -302,9 +329,9 @@ class OthelloGame:
         """
         turn = "{}'s turn".format(self._letter_to_name(self._game_state.current_turn))
         if self._game_state.current_turn == 'B':
-            background_color, foreground_color = 'black','#FFAAFF'
+            background_color, foreground_color = 'black',LOCOLOR
         else:
-            background_color, foreground_color = '#DDFF00','black'
+            background_color, foreground_color = HICOLOR,'black'
             
         self._turn_label = Label(master=self._score_box, text=turn,
                                  width=50, height=2, relief = SUNKEN,
@@ -318,7 +345,7 @@ class OthelloGame:
         """
         score = "Black: {}\nWhite: {}".format(self._game_state.score[0],
                                               self._game_state.score[1])
-        self._score_label = Label(master=self._score_box, text=score, width = 10, height = 2, relief = GROOVE, background = '#FFAAFF', font=('Times New Roman', 20))
+        self._score_label = Label(master=self._score_box, text=score, width = 10, height = 2, relief = GROOVE, background = LOCOLOR, font=('Times New Roman', 20))
         self._score_label.pack()
         
         
